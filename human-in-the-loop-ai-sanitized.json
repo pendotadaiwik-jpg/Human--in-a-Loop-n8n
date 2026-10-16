@@ -1,0 +1,612 @@
+{
+  "name": "HUMAN-IN-THE-LOOP AI EMAIL AUTOMATION",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Intake Form",
+        "formDescription": "Buissness Form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Company Name"
+            },
+            {
+              "fieldLabel": "Intent",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Leads generation Service"
+                  },
+                  {
+                    "option": "Real estate agents"
+                  },
+                  {
+                    "option": "Buisnees handler"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Budget",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "10$-500$"
+                  },
+                  {
+                    "option": "500$-1000$"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Project Description",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Time-line",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "2days"
+                  },
+                  {
+                    "option": "4 days"
+                  },
+                  {
+                    "option": "1 week"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        48
+      ],
+      "id": "6505cf86-30b9-4b92-af2c-dc4a038483a4",
+      "name": "On form submission",
+      "webhookId": "RECONFIGURE_AFTER_IMPORT"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_YOUR_RESOURCE_ID",
+          "mode": "list",
+          "cachedResultName": "Ai sales agent",
+          "cachedResultUrl": "RECONFIGURE_AFTER_IMPORT"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "RECONFIGURE_AFTER_IMPORT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json['Full Name'] }}",
+            "Email": "={{ $json.Email }}",
+            "Company Name": "={{ $json['Company Name'] }}",
+            "Intent": "={{ $json.Intent }}",
+            "Budget": "={{ $json.Budget }}",
+            "Project Description": "={{ $json['Project Description'] }}",
+            "Time-line": "={{ $json['Time-line'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Intent",
+              "displayName": "Intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Project Description",
+              "displayName": "Project Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Time-line",
+              "displayName": "Time-line",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        48
+      ],
+      "id": "002a44da-6f33-4bd6-bf58-f2bccc82fe22",
+      "name": "Append row in sheet"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1104,
+        144
+      ],
+      "id": "6fa580a3-0c03-4906-a8c9-a968e9db9ccb",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_YOUR_RESOURCE_ID",
+          "mode": "list",
+          "cachedResultName": "Ai sales agent",
+          "cachedResultUrl": "RECONFIGURE_AFTER_IMPORT"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1467998630,
+          "mode": "list",
+          "cachedResultName": "Properties",
+          "cachedResultUrl": "RECONFIGURE_AFTER_IMPORT"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        304
+      ],
+      "id": "19635b03-9751-49e7-92be-40abffe3ed85",
+      "name": "Get row(s) in sheet in Google Sheets"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"subject\": {\n      \"type\": \"string\",\n      \"description\": \"Professional email subject\"\n    },\n    \"body\": {\n      \"type\": \"string\",\n      \"description\": \"Full email body as plain text with \\\\n\\\\n between paragraphs\"\n    }\n  },\n  \"required\": [\n    \"subject\",\n    \"body\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        352
+      ],
+      "id": "6d7e46a3-e225-478d-93a8-e8eb1c1a6cb1",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59774370-76eb-42bb-91e9-8aa59c91fde4",
+              "name": "subject",
+              "value": "={{ $json.output.properties.subject.description }}",
+              "type": "string"
+            },
+            {
+              "id": "1acfe7f9-c067-4a9f-acb8-045ab9ef71d8",
+              "name": "Text",
+              "value": "={{ $json.output.properties.body.description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        48
+      ],
+      "id": "3349e3ea-44e3-4906-9f59-73906e3e6622",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "YOUR_EMAIL@example.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.Text }}",
+        "responseType": "freeText",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1024,
+        -80
+      ],
+      "id": "f3c97940-154d-43d9-ac5b-7c6ccbf783a5",
+      "name": "Send a message",
+      "webhookId": "RECONFIGURE_AFTER_IMPORT"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.data.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "approved",
+              "description": "Classify as ACCEPTED if the reviewer's response indicates approval, satisfaction, or confirmation to send the email as-is. This includes short affirmatives (e.g. \"approved,\" \"looks good,\" \"send it,\" \"ok,\" \"yes,\" \"good to go\"), or any reply that does not request changes, corrections, or edits to the drafted email. If the reviewer gives positive feedback with no actionable change requested, classify as ACCEPTED."
+            },
+            {
+              "category": "denied",
+              "description": "Classify as DENIED if the reviewer's response indicates disapproval, requests changes, corrections, or edits to the drafted email, or expresses that the draft is not ready to send. This includes explicit rejections (e.g. \"no,\" \"rework this,\" \"not good\") as well as feedback containing specific edit instructions (e.g. \"change the tone,\" \"fix the subject line,\" \"mention pricing,\" \"remove that line\"). Any reply containing an actionable revision request should be classified as DENIED, even if phrased politely or alongside partial praise."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        1248,
+        -80
+      ],
+      "id": "b49f6cc8-7324-4328-9e19-f8ea1a57157b",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Append row in sheet').item.json.Email }}",
+        "subject": "={{ $('Edit Fields').item.json.subject }}",
+        "emailType": "text",
+        "message": "={{ $('Edit Fields').item.json.Text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1664,
+        -128
+      ],
+      "id": "5797f2d3-487a-4660-898a-2c35da56d4ff",
+      "name": "Send a message1",
+      "webhookId": "RECONFIGURE_AFTER_IMPORT"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "= This is email generated previously:{{ $('Email generator').item.json.output.properties.body.description }}\n\nsubject: {{ $('Email generator').item.json.output.properties.subject.description }}\n\n\n\nwhat to change:{{ $json.data.text }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are the Email Revision Agent for [YOUR AGENCY NAME], an AI agency that builds custom AI agents and automation solutions.\n\nINPUT: The user prompt will contain:\n1. The original drafted email (subject and body).\n2. The owner's feedback describing what should be changed.\n\nTASK: Revise the email according to the owner's feedback, and return ONLY the structured JSON output defined below.\n\nSTEP 1 — Understand the feedback\nRead the owner's feedback carefully and identify every specific change requested (e.g. tone, wording, length, missing details, incorrect information, structure, subject line). Apply only what is asked — do not make unrelated changes to parts of the email the owner did not mention.\n\nSTEP 2 — Revise the email\n- Keep everything the owner did NOT ask to change exactly as it was, unless a change elsewhere makes it necessary to adjust for consistency (e.g. tone change should apply uniformly).\n- If the feedback is vague (e.g. \"make it better,\" \"improve tone\"), use best judgment to improve clarity, professionalism, and flow without altering the core message or facts.\n- If the feedback conflicts with the RULES below, the RULES take priority — apply the feedback within those constraints.\n- Do not invent new claims, services, projects, or pricing that were not in the original email or the owner's feedback.\n\nRULES (always apply):\n1. Tone: professional, polite, warm, confident. Never casual or salesy.\n2. No emojis, no exclamation marks, no emoticons.\n3. No corporate buzzwords (\"synergy,\" \"leverage,\" \"cutting-edge,\" \"game-changing,\" etc.).\n4. Do not add or reference billing_amount unless the owner's feedback explicitly asks for it.\n5. Keep body between 80–150 words unless the owner's feedback specifically requests a different length.\n6. Use the customer's name once at the greeting, not repeatedly.\n7. Sign off as \"The [YOUR AGENCY NAME] Team.\"\n\nOUTPUT FORMAT — return valid JSON only, no extra text, no markdown, no code fences:\n\n{\n  \"subject\": \"string - concise, specific subject line, under 10 words\",\n  \"body\": \"string - full revised email body as plain text, using \\n\\n for paragraph breaks\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1600,
+        144
+      ],
+      "id": "9b2097e4-a542-492a-ab99-c5a8ca9324fe",
+      "name": "Revised email generator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Full name:{{ $('On form submission').item.json['Full Name'] }}\n\nEmail: {{ $('On form submission').item.json.Email }}\n\nIntent:{{ $('On form submission').item.json.Intent }}\n\nProject description:{{ $('On form submission').item.json['Project Description'] }}\n\nBudget:{{ $('On form submission').item.json.Budget }}\n\nTime-line:{{ $('On form submission').item.json['Time-line'] }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are the Email Drafting Agent for [Daiwik Solutions], an AI agency that builds custom AI agents and automation solutions (e.g. real estate lead agents, customer support bots, AI-powered workflows).\n\nINPUT: A form submission containing full_name, email, project_description, billing_amount, and possibly other fields.\n\nTASK: Draft a reply email based on the customer's project_description, and return ONLY the structured JSON output defined below.\n\nSTEP 1 — Classify the request\n- IN SCOPE: project_description involves an AI agent, chatbot, automation, or AI-powered system.\n- OUT OF SCOPE: project_description is unrelated to AI (e.g. physical services, non-AI design/dev work).\n\nSTEP 2 — Check past projects\nUse the available tool to find 1-2 past projects relevant to the customer's specific ask (e.g. \"real estate\" → past real estate agent project). Reference them briefly as proof of experience. Never invent a project that isn't returned by the tool. If nothing closely matches, reference relevant general experience instead.\n\nSTEP 3 — Draft the email\n\nIf IN SCOPE:\n- Thank the customer by name.\n- Reference their specific project_description in your own words — show you understood exactly what they asked for, don't restate it verbatim.\n- Mention the relevant past project(s) as evidence of experience.\n- State that the team will follow up shortly with next steps/a proposal.\n- Close professionally.\n\nIf OUT OF SCOPE:\n- Thank the customer by name.\n- Politely clarify that [YOUR AGENCY NAME] specializes specifically in AI agents and automation, and this request falls outside that scope.\n- Do not imply you can still build it.\n- Invite them to reach out if they have an AI-related need in the future.\n\nRULES (always apply):\n1. Tone: professional, polite, warm, confident. Never casual or salesy.\n2. No emojis, no exclamation marks, no emoticons.\n3. No corporate buzzwords (\"synergy,\" \"leverage,\" \"cutting-edge,\" \"game-changing,\" etc.).\n4. Do not quote or reference billing_amount in the email unless explicitly instructed elsewhere.\n5. Keep body between 80–150 words. No filler, no repetition.\n6. Address only what the customer actually described — do not invent services or promise features not discussed.\n7. Use the customer's name once at the greeting, not repeatedly.\n8. Sign off as \"The [YOUR AGENCY NAME] Team.\"\n\nOUTPUT FORMAT — return valid JSON only, no extra text, no markdown, no code fences:\n\n{\n  \"subject\": \"string - concise, specific subject line, under 10 words\",\n  \"body\": \"string - full email body as plain text, using \\n\\n for paragraph breaks\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        48
+      ],
+      "id": "9d781406-d585-4c76-9eb0-af445f28411e",
+      "name": "Email generator"
+    },
+    {
+      "parameters": {
+        "content": "🚀 INPUT\n\nUser submits the required details\nthrough the form.\n\n↓\nData is stored in Google Sheets",
+        "height": 192,
+        "width": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "187188ac-e3df-4afd-95cb-904fe168da27",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "🤖 AI EMAIL GENERATION\n\nAI reads the submitted information\nand generates a personalized email.\n\nHuman review happens before\nthe email is finally sent.",
+        "height": 192,
+        "width": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        464,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "c405bca7-4649-4f37-9bf7-ef3c0784cd01",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "👤 HUMAN-IN-THE-LOOP\n\nAI does NOT send the email immediately.\n\nA human reviews the generated email\nand decides whether it should be sent\nor revised.",
+        "height": 192,
+        "width": 384
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1088,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "317d9a40-7cae-4757-967e-05d6cc602bab",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "🔄 APPROVAL LOOP\n\n✅ Approved\n→ Send Email\n\n❌ Rejected\n→ AI revises the email\n→ Human reviews again\n→ Send",
+        "height": 240,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1408,
+        352
+      ],
+      "typeVersion": 1,
+      "id": "b37356f4-1e5d-4996-ba7d-138c8a6104b2",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "HUMAN-IN-THE-LOOP AI EMAIL AUTOMATION\n\nAI generates → Human reviews → AI revises if needed → Email sent",
+        "height": 128,
+        "width": 608,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "cdac463c-ea6d-4c21-8dcc-45705484f6e1",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Email generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email generator",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Revised email generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "Email generator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Email generator",
+            "type": "ai_outputParser",
+            "index": 0
+          },
+          {
+            "node": "Revised email generator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Revised email generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Revised email generator": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email generator": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "0c8d35c1-94bf-4136-a798-1c2a32309e1a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "REDACTED"
+  },
+  "nodeGroups": [],
+  "id": "iQbE8TuNsRmPwV0t",
+  "tags": []
+}
